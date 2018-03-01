@@ -7,12 +7,8 @@ class TrackList extends Component {
     return (
       <div className="TrackList">
         {this.props.tracks.map(track =>{
-          return <Track key={track.id} name="" artist="" album="" />;
+          return <Track key={track.id} track={track} onAdd={this.props.onAdd} onRemove={this.props.onRemove} />;
         })}
-          You will add a map method that renders a set of Track components
-          <Track />
-          <Track />
-          <Track />
       </div>
     );
   }
