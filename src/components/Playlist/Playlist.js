@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import TrackList from '../TrackList/TrackList';
-import './PlayList.css';
+import './Playlist.css';
 
 class PlayList extends Component {
-  constructor() {
+  constructor(props) {
     super(props);
 
     this.handleNameChange.bind(this);

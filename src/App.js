@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import SearchBar from './components/SearchBar/SearchBar';
 import SearchResults from './components/SearchResults/SearchResults';
-import PlayList from './components/PlayList/Playlist';
+import PlayList from './components/Playlist/Playlist';
+import Spotify from './util/Spotify'
 import './App.css';
 
 class App extends Component {
@@ -49,12 +50,21 @@ class App extends Component {
 
   savePlaylist() {
     let trackUris = this.state.playlistTracks.map(track => {
-
+      return track.uri;
+    });
+    Spotify.savePlaylist(this.state.playlistName, trackUris);
+    this.setState({
+      playlistName: 'New Playlist',
+      searchResults: []
     });
   }
 
   search(searchTerm) {
-    console.log(searchTerm);
+    Spotify.search(searchTerm).then(tracks => {
+      this.setState({
+        playlistTracks: tracks
+      });
+    });
   }
 
   isTrackInPlaylist(track) {
@@ -69,12 +79,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Ja<span class="highlight">mmm</span>ing</h1>
-        <div class="App">
+        <h1>Ja<span className="highlight">mmm</span>ing</h1>
+        <div className="App">
           <SearchBar onSearch={this.search} />
-          <div class="App-playlist">
+          <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onRemove={this.removeTrack} />
-            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onNameChange={this.state.playlistName} onSave={this.savePlaylist} />
+            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
           </div>
         </div>
       </div>

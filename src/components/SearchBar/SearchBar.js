@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './SearchBar.css';
 
 class SearchBar extends Component {
-  constructor() {
+  constructor(props) {
     super(props);
     
     this.search.bind(this);
